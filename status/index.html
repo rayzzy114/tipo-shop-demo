@@ -239,27 +239,30 @@
 <script>
   var lb = document.getElementById('lb'),
       lbImg = document.getElementById('lb-img')
-  function close() {
+
+  function hide() {
     lb.classList.remove('on')
     document.body.style.overflow = ''
-    if (location.hash === '#shot') history.back()
   }
+  // кнопка «назад» снимает запись из истории, если мы её сами добавили,
+  // и никогда не уводит со страницы
+  function back() {
+    if (history.state && history.state.shot) history.back()
+    else hide()
+  }
+
   document.querySelectorAll('.shots button').forEach(function (b) {
     b.addEventListener('click', function () {
       lbImg.src = b.dataset.src
       lb.classList.add('on')
       document.body.style.overflow = 'hidden'
-      history.pushState({ shot: 1 }, '', '#shot')
+      history.pushState({ shot: 1 }, '', location.pathname + '#shot')
     })
   })
-  document.getElementById('lb-back').addEventListener('click', close)
-  lb.addEventListener('click', function (e) { if (e.target !== lbImg) close() })
-  // системная кнопка «назад» и свайп тоже закрывают картинку
-  window.addEventListener('popstate', function () {
-    lb.classList.remove('on')
-    document.body.style.overflow = ''
-  })
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close() })
+  document.getElementById('lb-back').addEventListener('click', back)
+  lb.addEventListener('click', function (e) { if (e.target !== lbImg) back() })
+  window.addEventListener('popstate', hide)
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') back() })
 </script>
 </body>
 </html>
