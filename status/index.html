@@ -259,8 +259,15 @@
       history.pushState({ shot: 1 }, '', location.href.split('#')[0] + '#shot')
     })
   })
-  document.getElementById('lb-back').addEventListener('click', back)
-  lb.addEventListener('click', function (e) { if (e.target !== lbImg) back() })
+  // клик по кнопке всплывал до контейнера и «назад» срабатывал дважды,
+  // из-за чего страница уходила на шаг дальше в истории
+  document.getElementById('lb-back').addEventListener('click', function (e) {
+    e.stopPropagation()
+    back()
+  })
+  lb.addEventListener('click', function (e) {
+    if (e.target === lb || e.target.classList.contains('pane')) back()
+  })
   window.addEventListener('popstate', hide)
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') back() })
 </script>
