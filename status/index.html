@@ -256,7 +256,7 @@
       lbImg.src = b.dataset.src
       lb.classList.add('on')
       document.body.style.overflow = 'hidden'
-      history.pushState({ shot: 1 }, '', location.pathname + '#shot')
+      history.pushState({ shot: 1 }, '', location.href.split('#')[0] + '#shot')
     })
   })
   document.getElementById('lb-back').addEventListener('click', back)
