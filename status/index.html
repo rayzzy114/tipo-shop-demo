@@ -62,6 +62,22 @@
   .pick .t { font-weight: 600; }
   .est { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); }
   footer { color: var(--dim); font-size: 0.82rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+  .shots button { flex: none; padding: 0; border: 0; background: none; cursor: pointer; }
+  .lb {
+    position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.94);
+    display: none; flex-direction: column;
+  }
+  .lb.on { display: flex; }
+  .lb .bar { padding: 0.7rem 0.9rem; }
+  .lb button {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--card); color: var(--ink); border: 1px solid var(--rule);
+    border-radius: 0.5rem; padding: 0.5rem 0.8rem; font-size: 0.9rem;
+    font-family: var(--sans); cursor: pointer;
+  }
+  .lb button:hover { border-color: var(--ok); color: var(--ok); }
+  .lb .pane { flex: 1; overflow: auto; display: flex; align-items: flex-start; justify-content: center; padding: 0 0.9rem 1.5rem; }
+  .lb img { max-width: 100%; border-radius: 0.6rem; border: 1px solid var(--rule); }
 </style>
 </head>
 <body>
@@ -83,9 +99,9 @@
       <div class="t">реклама: вариант 1</div>
       <div class="d">шесть мест, календарь занятости, статистика показов. <span class="est">4–5 дней</span></div>
       <div class="shots">
-        <a href="img/ads-a-places.jpg"><img src="img/ads-a-places.jpg" alt="места"></a>
-        <a href="img/ads-a-builder.jpg"><img src="img/ads-a-builder.jpg" alt="конструктор"></a>
-        <a href="img/ads-a-stats.jpg"><img src="img/ads-a-stats.jpg" alt="статистика"></a>
+        <button type="button" data-src="img/ads-a-places.jpg"><img src="img/ads-a-places.jpg" alt="места"></button>
+        <button type="button" data-src="img/ads-a-builder.jpg"><img src="img/ads-a-builder.jpg" alt="конструктор"></button>
+        <button type="button" data-src="img/ads-a-stats.jpg"><img src="img/ads-a-stats.jpg" alt="статистика"></button>
       </div>
     </div>
 
@@ -93,10 +109,10 @@
       <div class="t">реклама: вариант 2</div>
       <div class="d">два формата, баннер и видео, оплата после ручной проверки. <span class="est">2–3 дня</span></div>
       <div class="shots">
-        <a href="img/ads-b-main.jpg"><img src="img/ads-b-main.jpg" alt="главный экран"></a>
-        <a href="img/ads-b-request.jpg"><img src="img/ads-b-request.jpg" alt="заявка"></a>
-        <a href="img/ads-b-preview.jpg"><img src="img/ads-b-preview.jpg" alt="превью"></a>
-        <a href="img/ads-b-admin.jpg"><img src="img/ads-b-admin.jpg" alt="админка"></a>
+        <button type="button" data-src="img/ads-b-main.jpg"><img src="img/ads-b-main.jpg" alt="главный экран"></button>
+        <button type="button" data-src="img/ads-b-request.jpg"><img src="img/ads-b-request.jpg" alt="заявка"></button>
+        <button type="button" data-src="img/ads-b-preview.jpg"><img src="img/ads-b-preview.jpg" alt="превью"></button>
+        <button type="button" data-src="img/ads-b-admin.jpg"><img src="img/ads-b-admin.jpg" alt="админка"></button>
       </div>
     </div>
 
@@ -104,13 +120,20 @@
       <div class="t">промокоды и баллы в приложении</div>
       <div class="d">в боте работают, в приложении пока только справка. <span class="est">2 дня</span></div>
       <div class="shots">
-        <a href="img/points.jpg"><img src="img/points.jpg" alt="баллы"></a>
+        <button type="button" data-src="img/points.jpg"><img src="img/points.jpg" alt="баллы"></button>
       </div>
     </div>
 
     <div class="pick">
-      <div class="t">опт: 50 аккаунтов одним заказом</div>
-      <div class="d">купить можно, выдача рисуется по одному. файлом или списком в чат. <span class="est">2 дня</span></div>
+      <div class="t">опт: 50 аккаунтов, как выдавать</div>
+      <div class="d">купить можно уже сейчас, выдача рисуется по одному. четыре варианта, выбери один. <span class="est">2 дня</span></div>
+      <div class="shots">
+        <button type="button" data-src="img/bulk-1-file.jpg"><img src="img/bulk-1-file.jpg" alt="файлом"></button>
+        <button type="button" data-src="img/bulk-2-list.jpg"><img src="img/bulk-2-list.jpg" alt="списком"></button>
+        <button type="button" data-src="img/bulk-3-packs.jpg"><img src="img/bulk-3-packs.jpg" alt="пачками"></button>
+        <button type="button" data-src="img/bulk-4-ask.jpg"><img src="img/bulk-4-ask.jpg" alt="спросить при покупке"></button>
+      </div>
+      <div class="d" style="margin-top:0.5rem">1 файлом · 2 списком с копированием · 3 пачками по 10 · 4 спросить формат при покупке</div>
     </div>
   </section>
 
@@ -120,43 +143,43 @@
       <li>
         <div class="t">главная</div>
         <div class="d">поиск, категории, баннер, хит, баланс, популярное</div>
-        <div class="shots"><a href="img/home.jpg"><img src="img/home.jpg" alt="главная"></a></div>
+        <div class="shots"><button type="button" data-src="img/home.jpg"><img src="img/home.jpg" alt="главная"></button></div>
       </li>
       <li>
         <div class="t">каталог</div>
         <div class="d">отлёжка, страна, формат, количество с клавиатуры</div>
         <div class="shots">
-          <a href="img/catalog.jpg"><img src="img/catalog.jpg" alt="каталог"></a>
-          <a href="img/sheet.jpg"><img src="img/sheet.jpg" alt="отлёжка"></a>
-          <a href="img/stock.jpg"><img src="img/stock.jpg" alt="остаток"></a>
+          <button type="button" data-src="img/catalog.jpg"><img src="img/catalog.jpg" alt="каталог"></button>
+          <button type="button" data-src="img/sheet.jpg"><img src="img/sheet.jpg" alt="отлёжка"></button>
+          <button type="button" data-src="img/stock.jpg"><img src="img/stock.jpg" alt="остаток"></button>
         </div>
       </li>
       <li>
         <div class="t">покупка в один тап</div>
         <div class="d">без корзины, скидка уровня сама, проверка аккаунта перед выдачей</div>
         <div class="shots">
-          <a href="img/check.jpg"><img src="img/check.jpg" alt="проверка"></a>
-          <a href="img/check-done.jpg"><img src="img/check-done.jpg" alt="проверен"></a>
+          <button type="button" data-src="img/check.jpg"><img src="img/check.jpg" alt="проверка"></button>
+          <button type="button" data-src="img/check-done.jpg"><img src="img/check-done.jpg" alt="проверен"></button>
         </div>
       </li>
       <li>
         <div class="t">заказы и выдача</div>
         <div class="d">код с таймером, ожидание sms, прокси, ключ vpn, копирование в один тап</div>
         <div class="shots">
-          <a href="img/orders.jpg"><img src="img/orders.jpg" alt="заказы"></a>
-          <a href="img/order-acc.jpg"><img src="img/order-acc.jpg" alt="аккаунт"></a>
-          <a href="img/order-sms.jpg"><img src="img/order-sms.jpg" alt="sms"></a>
+          <button type="button" data-src="img/orders.jpg"><img src="img/orders.jpg" alt="заказы"></button>
+          <button type="button" data-src="img/order-acc.jpg"><img src="img/order-acc.jpg" alt="аккаунт"></button>
+          <button type="button" data-src="img/order-sms.jpg"><img src="img/order-sms.jpg" alt="sms"></button>
         </div>
       </li>
       <li>
         <div class="t">не жми</div>
         <div class="d">лента видео, свайп, кнопка покупки под роликом</div>
-        <div class="shots"><a href="img/feed.jpg"><img src="img/feed.jpg" alt="лента"></a></div>
+        <div class="shots"><button type="button" data-src="img/feed.jpg"><img src="img/feed.jpg" alt="лента"></button></div>
       </li>
       <li>
         <div class="t">профиль</div>
         <div class="d">баланс, баллы, уровень, повтор покупки, поддержка, настройки</div>
-        <div class="shots"><a href="img/profile.jpg"><img src="img/profile.jpg" alt="профиль"></a></div>
+        <div class="shots"><button type="button" data-src="img/profile.jpg"><img src="img/profile.jpg" alt="профиль"></button></div>
       </li>
     </ul>
   </section>
@@ -208,5 +231,35 @@
 
   <footer>данные демонстрационные, деньги не списываются</footer>
 </div>
+
+<div class="lb" id="lb">
+  <div class="bar"><button type="button" id="lb-back">← назад</button></div>
+  <div class="pane"><img id="lb-img" alt=""></div>
+</div>
+<script>
+  var lb = document.getElementById('lb'),
+      lbImg = document.getElementById('lb-img')
+  function close() {
+    lb.classList.remove('on')
+    document.body.style.overflow = ''
+    if (location.hash === '#shot') history.back()
+  }
+  document.querySelectorAll('.shots button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      lbImg.src = b.dataset.src
+      lb.classList.add('on')
+      document.body.style.overflow = 'hidden'
+      history.pushState({ shot: 1 }, '', '#shot')
+    })
+  })
+  document.getElementById('lb-back').addEventListener('click', close)
+  lb.addEventListener('click', function (e) { if (e.target !== lbImg) close() })
+  // системная кнопка «назад» и свайп тоже закрывают картинку
+  window.addEventListener('popstate', function () {
+    lb.classList.remove('on')
+    document.body.style.overflow = ''
+  })
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close() })
+</script>
 </body>
 </html>
