@@ -18,54 +18,53 @@
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--sans);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased;
   }
   .wrap {
-    max-width: 44rem;
-    margin: 0 auto;
-    padding: 2.5rem 1.1rem 4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2.25rem;
+    max-width: 44rem; margin: 0 auto; padding: 2.5rem 1.1rem 4rem;
+    display: flex; flex-direction: column; gap: 3rem;
   }
-  h1 { font-size: 1.5rem; margin: 0; font-weight: 700; letter-spacing: -0.01em; }
+  h1 { font-size: 1.6rem; margin: 0; font-weight: 700; letter-spacing: -0.01em; }
   .date { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); letter-spacing: 0.1em; }
-  .links { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.2rem; }
+  .links { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.6rem; }
   .links a {
-    font-size: 0.82rem; text-decoration: none; color: var(--ink);
-    border: 1px solid var(--rule); border-radius: 0.5rem; padding: 0.4rem 0.7rem;
+    font-size: 0.85rem; text-decoration: none; color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 0.5rem; padding: 0.45rem 0.8rem;
   }
   .links a:hover { border-color: var(--ok); color: var(--ok); }
+
+  /* заголовки разделов: крупные, с цветной меткой слева, чтобы не сливались */
   h2 {
-    font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.14em;
-    color: var(--dim); font-weight: 600; margin: 0 0 0.9rem;
-    padding-bottom: 0.55rem; border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; gap: 0.7rem;
+    font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em;
+    margin: 0 0 1.1rem; padding: 0;
   }
+  h2 i {
+    width: 0.7rem; height: 1.5rem; border-radius: 0.2rem;
+    background: var(--rule); flex: none; font-style: normal;
+  }
+  h2.need i { background: var(--wait); }
+  h2.done i { background: var(--ok); }
+  h2 b { font-family: var(--mono); font-size: 0.8rem; font-weight: 500; color: var(--dim); }
+  .sec-hint { color: var(--dim); font-size: 0.88rem; margin: -0.5rem 0 1.2rem; }
+
   ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-  li { padding: 0.75rem 0; border-bottom: 1px solid var(--rule); }
+  li { padding: 0.9rem 0; border-bottom: 1px solid var(--rule); }
   li:last-child { border-bottom: 0; }
-  .t { font-size: 0.95rem; }
-  .d { color: var(--dim); font-size: 0.84rem; margin-top: 0.15rem; }
-  .shots { display: flex; gap: 0.5rem; margin-top: 0.6rem; overflow-x: auto; padding-bottom: 0.2rem; }
-  .shots a { flex: none; }
+  .t { font-size: 1rem; font-weight: 600; }
+  .d { color: var(--dim); font-size: 0.86rem; margin-top: 0.2rem; }
+  .shots { display: flex; gap: 0.5rem; margin-top: 0.7rem; overflow-x: auto; padding-bottom: 0.2rem; }
+  .shots button { flex: none; padding: 0; border: 0; background: none; cursor: pointer; }
   .shots img {
-    display: block; width: 104px; border-radius: 0.5rem;
+    display: block; width: 108px; border-radius: 0.5rem;
     border: 1px solid var(--rule); background: var(--card);
   }
-  .pick { border: 1px solid var(--rule); border-radius: 0.7rem; padding: 0.9rem 1rem; background: var(--card); }
-  .pick + .pick { margin-top: 0.6rem; }
-  .pick .t { font-weight: 600; }
-  footer { color: var(--dim); font-size: 0.82rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
-  .shots button { flex: none; padding: 0; border: 0; background: none; cursor: pointer; }
-  .lb {
-    position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.94);
-    display: none; flex-direction: column;
-  }
+  .pick { border: 1px solid var(--rule); border-radius: 0.8rem; padding: 1rem 1.1rem; background: var(--card); }
+  .pick + .pick { margin-top: 0.7rem; }
+  .pick .t { font-size: 1.05rem; }
+
+  .lb { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.94); display: none; flex-direction: column; }
   .lb.on { display: flex; }
   .lb .bar { padding: 0.7rem 0.9rem; }
   .lb button {
@@ -92,11 +91,12 @@
   </header>
 
   <section>
-    <h2>нужно решение</h2>
+    <h2 class="need"><i></i>нужно решение</h2>
+    <div class="sec-hint">пока не выбрано, дальше не двигаемся</div>
 
     <div class="pick">
       <div class="t">реклама: вариант 1</div>
-      <div class="d">шесть мест, календарь занятости, статистика показов.</div>
+      <div class="d">шесть мест, календарь занятости, статистика показов</div>
       <div class="shots">
         <button type="button" data-src="img/ads-a-places.jpg"><img src="img/ads-a-places.jpg" alt="места"></button>
         <button type="button" data-src="img/ads-a-builder.jpg"><img src="img/ads-a-builder.jpg" alt="конструктор"></button>
@@ -106,7 +106,7 @@
 
     <div class="pick">
       <div class="t">реклама: вариант 2</div>
-      <div class="d">два формата, баннер и видео, оплата после ручной проверки.</div>
+      <div class="d">два формата, баннер и видео, оплата после ручной проверки</div>
       <div class="shots">
         <button type="button" data-src="img/ads-b-main.jpg"><img src="img/ads-b-main.jpg" alt="главный экран"></button>
         <button type="button" data-src="img/ads-b-request.jpg"><img src="img/ads-b-request.jpg" alt="заявка"></button>
@@ -116,28 +116,27 @@
     </div>
 
     <div class="pick">
-      <div class="t">промокоды и баллы в приложении</div>
-      <div class="d">в боте работают, в приложении пока только справка.</div>
-      <div class="shots">
-        <button type="button" data-src="img/points.jpg"><img src="img/points.jpg" alt="баллы"></button>
-      </div>
-    </div>
-
-    <div class="pick">
       <div class="t">опт: 50 аккаунтов, как выдавать</div>
-      <div class="d">купить можно уже сейчас, выдача рисуется по одному. четыре варианта, выбери один.</div>
+      <div class="d">1 файлом · 2 списком с копированием · 3 пачками по 10 · 4 спросить формат при покупке</div>
       <div class="shots">
         <button type="button" data-src="img/bulk-1-file.jpg"><img src="img/bulk-1-file.jpg" alt="файлом"></button>
         <button type="button" data-src="img/bulk-2-list.jpg"><img src="img/bulk-2-list.jpg" alt="списком"></button>
         <button type="button" data-src="img/bulk-3-packs.jpg"><img src="img/bulk-3-packs.jpg" alt="пачками"></button>
         <button type="button" data-src="img/bulk-4-ask.jpg"><img src="img/bulk-4-ask.jpg" alt="спросить при покупке"></button>
       </div>
-      <div class="d" style="margin-top:0.5rem">1 файлом · 2 списком с копированием · 3 пачками по 10 · 4 спросить формат при покупке</div>
+    </div>
+
+    <div class="pick">
+      <div class="t">промокоды и баллы в приложении</div>
+      <div class="d">в боте работают, в приложении пока только справка</div>
+      <div class="shots">
+        <button type="button" data-src="img/points.jpg"><img src="img/points.jpg" alt="баллы"></button>
+      </div>
     </div>
   </section>
 
   <section>
-    <h2>готово · приложение</h2>
+    <h2 class="done"><i></i>готово <b>приложение</b></h2>
     <ul>
       <li>
         <div class="t">главная</div>
@@ -145,29 +144,42 @@
         <div class="shots"><button type="button" data-src="img/home.jpg"><img src="img/home.jpg" alt="главная"></button></div>
       </li>
       <li>
-        <div class="t">каталог</div>
-        <div class="d">отлёжка, страна, формат, количество с клавиатуры</div>
+        <div class="t">каталог аккаунтов</div>
+        <div class="d">отлёжка, страна, формат выдачи, количество с клавиатуры</div>
         <div class="shots">
           <button type="button" data-src="img/catalog.jpg"><img src="img/catalog.jpg" alt="каталог"></button>
-          <button type="button" data-src="img/sheet.jpg"><img src="img/sheet.jpg" alt="отлёжка"></button>
-          <button type="button" data-src="img/stock.jpg"><img src="img/stock.jpg" alt="остаток"></button>
+          <button type="button" data-src="img/sheet.jpg"><img src="img/sheet.jpg" alt="выбор отлёжки"></button>
+        </div>
+      </li>
+      <li>
+        <div class="t">каталог sms</div>
+        <div class="d">сервис и страна, цена пересчитывается на месте</div>
+        <div class="shots">
+          <button type="button" data-src="img/sms-catalog.jpg"><img src="img/sms-catalog.jpg" alt="sms"></button>
+          <button type="button" data-src="img/sms-country.jpg"><img src="img/sms-country.jpg" alt="страна"></button>
         </div>
       </li>
       <li>
         <div class="t">покупка в один тап</div>
-        <div class="d">без корзины, скидка уровня сама, проверка аккаунта перед выдачей</div>
+        <div class="d">без корзины, скидка уровня применяется сама</div>
         <div class="shots">
           <button type="button" data-src="img/check.jpg"><img src="img/check.jpg" alt="проверка"></button>
           <button type="button" data-src="img/check-done.jpg"><img src="img/check-done.jpg" alt="проверен"></button>
         </div>
       </li>
       <li>
-        <div class="t">заказы и выдача</div>
-        <div class="d">код с таймером, ожидание sms, прокси, ключ vpn, копирование в один тап</div>
+        <div class="t">заказы</div>
+        <div class="d">список с живыми статусами</div>
+        <div class="shots"><button type="button" data-src="img/orders.jpg"><img src="img/orders.jpg" alt="заказы"></button></div>
+      </li>
+      <li>
+        <div class="t">выдача под каждый товар</div>
+        <div class="d">код от аккаунта, номер и код sms, строка прокси, ключ vpn с инструкцией</div>
         <div class="shots">
-          <button type="button" data-src="img/orders.jpg"><img src="img/orders.jpg" alt="заказы"></button>
           <button type="button" data-src="img/order-acc.jpg"><img src="img/order-acc.jpg" alt="аккаунт"></button>
           <button type="button" data-src="img/order-sms.jpg"><img src="img/order-sms.jpg" alt="sms"></button>
+          <button type="button" data-src="img/order-proxy.jpg"><img src="img/order-proxy.jpg" alt="прокси"></button>
+          <button type="button" data-src="img/order-vpn.jpg"><img src="img/order-vpn.jpg" alt="vpn"></button>
         </div>
       </li>
       <li>
@@ -177,14 +189,60 @@
       </li>
       <li>
         <div class="t">профиль</div>
-        <div class="d">баланс, баллы, уровень, повтор покупки, поддержка, настройки</div>
+        <div class="d">баланс, баллы, уровень, повтор покупки</div>
         <div class="shots"><button type="button" data-src="img/profile.jpg"><img src="img/profile.jpg" alt="профиль"></button></div>
+      </li>
+      <li>
+        <div class="t">поддержка и настройки</div>
+        <div class="d">частые вопросы, уведомления, звук, язык</div>
+        <div class="shots">
+          <button type="button" data-src="img/support.jpg"><img src="img/support.jpg" alt="поддержка"></button>
+          <button type="button" data-src="img/settings.jpg"><img src="img/settings.jpg" alt="настройки"></button>
+        </div>
       </li>
     </ul>
   </section>
 
   <section>
-    <h2>готово · бот</h2>
+    <h2 class="done"><i></i>готово <b>состояния</b></h2>
+    <div class="sec-hint">что видит человек, когда что-то идёт не по плану</div>
+    <ul>
+      <li>
+        <div class="t">не хватает денег</div>
+        <div class="d">сколько стоит, сколько на балансе, чего не хватает, кнопка пополнить. выбранное не сбрасывается</div>
+        <div class="shots"><button type="button" data-src="img/no-money.jpg"><img src="img/no-money.jpg" alt="не хватает"></button></div>
+      </li>
+      <li>
+        <div class="t">просит больше, чем есть</div>
+        <div class="d">кнопка сама пишет «есть только 41» и ставит остаток одним тапом</div>
+        <div class="shots"><button type="button" data-src="img/stock.jpg"><img src="img/stock.jpg" alt="остаток"></button></div>
+      </li>
+      <li>
+        <div class="t">ждём код из sms</div>
+        <div class="d">таймер тикает, прогресс идёт, есть отмена с возвратом денег</div>
+        <div class="shots"><button type="button" data-src="img/sms-waiting.jpg"><img src="img/sms-waiting.jpg" alt="ждём код"></button></div>
+      </li>
+      <li>
+        <div class="t">аккаунт проверяется перед выдачей</div>
+        <div class="d">вход, спамблок, заморозка. мёртвый аккаунт клиенту не показываем</div>
+        <div class="shots">
+          <button type="button" data-src="img/check.jpg"><img src="img/check.jpg" alt="идёт проверка"></button>
+          <button type="button" data-src="img/check-done.jpg"><img src="img/check-done.jpg" alt="проверен"></button>
+        </div>
+      </li>
+      <li>
+        <div class="t">код истёк, sms не пришла</div>
+        <div class="d">не молчим: пишем словами и даём кнопку запросить заново или вернуть деньги</div>
+      </li>
+      <li>
+        <div class="t">нет в наличии, осталось мало, нет интернета</div>
+        <div class="d">на каждый случай свой экран с подсказкой, что делать</div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="done"><i></i>готово <b>бот</b></h2>
     <ul>
       <li>
         <div class="t">магазин целиком в чате</div>
@@ -206,7 +264,7 @@
   </section>
 
   <section>
-    <h2>далее</h2>
+    <h2><i></i>далее</h2>
     <ul>
       <li>
         <div class="t">настоящий сервер вместо демо-данных</div>
@@ -227,8 +285,6 @@
       </li>
     </ul>
   </section>
-
-  <footer>данные демонстрационные, деньги не списываются</footer>
 </div>
 
 <div class="lb" id="lb">
@@ -243,8 +299,6 @@
     lb.classList.remove('on')
     document.body.style.overflow = ''
   }
-  // кнопка «назад» снимает запись из истории, если мы её сами добавили,
-  // и никогда не уводит со страницы
   function back() {
     if (history.state && history.state.shot) history.back()
     else hide()
@@ -258,8 +312,6 @@
       history.pushState({ shot: 1 }, '', location.href.split('#')[0] + '#shot')
     })
   })
-  // клик по кнопке всплывал до контейнера и «назад» срабатывал дважды,
-  // из-за чего страница уходила на шаг дальше в истории
   document.getElementById('lb-back').addEventListener('click', function (e) {
     e.stopPropagation()
     back()
