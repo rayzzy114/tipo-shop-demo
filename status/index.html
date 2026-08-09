@@ -3,308 +3,317 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>типо shop · статус</title>
+<title>типо shop · доска</title>
 <style>
   :root {
     --bg: #0c0f12;
-    --card: #14181c;
+    --col: #11151a;
+    --card: #171c21;
     --ink: #eef1ec;
     --dim: #8b938a;
     --rule: #232a2e;
     --ok: #30d158;
+    --work: #3f9bff;
     --wait: #f0a93b;
+    --next: #6f776d;
     --mono: ui-monospace, "SF Mono", Menlo, monospace;
     --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
-    font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased;
+    font-family: var(--sans); line-height: 1.45; -webkit-font-smoothing: antialiased;
   }
-  .wrap {
-    max-width: 44rem; margin: 0 auto; padding: 2.5rem 1.1rem 4rem;
-    display: flex; flex-direction: column; gap: 3rem;
-  }
-  h1 { font-size: 1.6rem; margin: 0; font-weight: 700; letter-spacing: -0.01em; }
-  .date { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); letter-spacing: 0.1em; }
-  .links { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.6rem; }
+  header { padding: 1.6rem 1rem 1.1rem; max-width: 82rem; margin: 0 auto; }
+  .date { font-family: var(--mono); font-size: 0.7rem; color: var(--dim); letter-spacing: 0.12em; }
+  h1 { font-size: 1.5rem; margin: 0.35rem 0 0; font-weight: 700; letter-spacing: -0.015em; }
+  .links { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.8rem; }
   .links a {
-    font-size: 0.85rem; text-decoration: none; color: var(--ink);
-    border: 1px solid var(--rule); border-radius: 0.5rem; padding: 0.45rem 0.8rem;
+    font-size: 0.82rem; text-decoration: none; color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 0.5rem; padding: 0.4rem 0.75rem;
   }
   .links a:hover { border-color: var(--ok); color: var(--ok); }
 
-  /* заголовки разделов: крупные, с цветной меткой слева, чтобы не сливались */
-  h2 {
-    display: flex; align-items: center; gap: 0.7rem;
-    font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em;
-    margin: 0 0 1.1rem; padding: 0;
+  /* доска: на телефоне колонки листаются вбок, на широком экране стоят рядом */
+  .board {
+    display: grid; gap: 0.75rem; padding: 0 1rem 3rem;
+    grid-auto-flow: column; grid-auto-columns: 86vw;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    max-width: 82rem; margin: 0 auto;
   }
-  h2 i {
-    width: 0.7rem; height: 1.5rem; border-radius: 0.2rem;
-    background: var(--rule); flex: none; font-style: normal;
+  .board::-webkit-scrollbar { display: none; }
+  @media (min-width: 60rem) {
+    .board { grid-auto-columns: minmax(0, 1fr); overflow: visible; }
   }
-  h2.need i { background: var(--wait); }
-  h2.done i { background: var(--ok); }
-  h2 b { font-family: var(--mono); font-size: 0.8rem; font-weight: 500; color: var(--dim); }
-  .sec-hint { color: var(--dim); font-size: 0.88rem; margin: -0.5rem 0 1.2rem; }
+  .col {
+    scroll-snap-align: start; background: var(--col);
+    border: 1px solid var(--rule); border-radius: 1rem; padding: 0.85rem;
+    display: flex; flex-direction: column; gap: 0.65rem; min-width: 0;
+  }
+  .col > h2 {
+    display: flex; align-items: center; gap: 0.55rem; margin: 0 0 0.15rem;
+    font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em;
+  }
+  .col > h2 i { width: 0.55rem; height: 0.55rem; border-radius: 50%; flex: none; }
+  .col > h2 span {
+    margin-left: auto; font-family: var(--mono); font-size: 0.75rem;
+    color: var(--dim); background: var(--card); border-radius: 0.4rem; padding: 0.1rem 0.4rem;
+  }
+  .c-need i { background: var(--wait); }
+  .c-work i { background: var(--work); }
+  .c-done i { background: var(--ok); }
+  .c-next i { background: var(--next); }
+  .hint { font-size: 0.78rem; color: var(--dim); margin: -0.2rem 0 0.2rem; }
 
-  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-  li { padding: 0.9rem 0; border-bottom: 1px solid var(--rule); }
-  li:last-child { border-bottom: 0; }
-  .t { font-size: 1rem; font-weight: 600; }
-  .d { color: var(--dim); font-size: 0.86rem; margin-top: 0.2rem; }
-  .shots { display: flex; gap: 0.5rem; margin-top: 0.7rem; overflow-x: auto; padding-bottom: 0.2rem; }
+  .card {
+    background: var(--card); border-radius: 0.7rem; padding: 0.75rem 0.8rem;
+    border-left: 3px solid transparent;
+  }
+  .c-need .card { border-left-color: var(--wait); }
+  .c-work .card { border-left-color: var(--work); }
+  .c-done .card { border-left-color: var(--ok); }
+  .c-next .card { border-left-color: var(--next); }
+  .card .t { font-size: 0.92rem; font-weight: 600; }
+  .card .d { font-size: 0.8rem; color: var(--dim); margin-top: 0.25rem; }
+  .tag {
+    display: inline-block; font-family: var(--mono); font-size: 0.66rem;
+    color: var(--dim); border: 1px solid var(--rule); border-radius: 0.3rem;
+    padding: 0.05rem 0.35rem; margin-top: 0.5rem;
+  }
+  .shots { display: flex; gap: 0.35rem; margin-top: 0.55rem; overflow-x: auto; }
+  .shots::-webkit-scrollbar { display: none; }
   .shots button { flex: none; padding: 0; border: 0; background: none; cursor: pointer; }
   .shots img {
-    display: block; width: 108px; border-radius: 0.5rem;
-    border: 1px solid var(--rule); background: var(--card);
+    display: block; width: 62px; border-radius: 0.35rem;
+    border: 1px solid var(--rule); background: var(--bg);
   }
-  .pick { border: 1px solid var(--rule); border-radius: 0.8rem; padding: 1rem 1.1rem; background: var(--card); }
-  .pick + .pick { margin-top: 0.7rem; }
-  .pick .t { font-size: 1.05rem; }
 
-  .lb { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.94); display: none; flex-direction: column; }
+  .lb { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.95); display: none; flex-direction: column; }
   .lb.on { display: flex; }
   .lb .bar { padding: 0.7rem 0.9rem; }
   .lb button {
-    display: inline-flex; align-items: center; gap: 0.4rem;
     background: var(--card); color: var(--ink); border: 1px solid var(--rule);
-    border-radius: 0.5rem; padding: 0.5rem 0.8rem; font-size: 0.9rem;
+    border-radius: 0.5rem; padding: 0.5rem 0.85rem; font-size: 0.9rem;
     font-family: var(--sans); cursor: pointer;
   }
   .lb button:hover { border-color: var(--ok); color: var(--ok); }
-  .lb .pane { flex: 1; overflow: auto; display: flex; align-items: flex-start; justify-content: center; padding: 0 0.9rem 1.5rem; }
-  .lb img { max-width: 100%; border-radius: 0.6rem; border: 1px solid var(--rule); }
+  .lb .pane { flex: 1; overflow: auto; display: flex; justify-content: center; padding: 0 0.9rem 1.5rem; }
+  .lb img { max-width: 100%; align-self: flex-start; border-radius: 0.6rem; border: 1px solid var(--rule); }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header>
-    <div class="date">9 августа 2026</div>
-    <h1>типо shop · статус</h1>
-    <div class="links">
-      <a href="https://t.me/sverdlovsktipo_bot?startapp">приложение</a>
-      <a href="https://t.me/sverdlovsktipo_bot">бот</a>
-    </div>
-  </header>
+<header>
+  <div class="date">9 августа 2026</div>
+  <h1>типо shop · доска</h1>
+  <div class="links">
+    <a href="https://t.me/sverdlovsktipo_bot?startapp">приложение</a>
+    <a href="https://t.me/sverdlovsktipo_bot">бот</a>
+  </div>
+</header>
 
-  <section>
-    <h2 class="need"><i></i>нужно решение</h2>
-    <div class="sec-hint">пока не выбрано, дальше не двигаемся</div>
+<div class="board">
 
-    <div class="pick">
+  <div class="col c-need">
+    <h2><i></i>нужно решение<span>1</span></h2>
+    <div class="hint">выбери вариант, дальше делаю</div>
+    <div class="card">
       <div class="t">опт: 50 аккаунтов, как выдавать</div>
       <div class="d">1 файлом · 2 списком с копированием · 3 пачками по 10 · 4 спросить формат при покупке</div>
       <div class="shots">
         <button type="button" data-src="img/bulk-1-file.jpg"><img src="img/bulk-1-file.jpg" alt="файлом"></button>
         <button type="button" data-src="img/bulk-2-list.jpg"><img src="img/bulk-2-list.jpg" alt="списком"></button>
         <button type="button" data-src="img/bulk-3-packs.jpg"><img src="img/bulk-3-packs.jpg" alt="пачками"></button>
-        <button type="button" data-src="img/bulk-4-ask.jpg"><img src="img/bulk-4-ask.jpg" alt="спросить при покупке"></button>
+        <button type="button" data-src="img/bulk-4-ask.jpg"><img src="img/bulk-4-ask.jpg" alt="спросить"></button>
       </div>
+      <span class="tag">приложение</span>
+    </div>
+  </div>
+
+  <div class="col c-work">
+    <h2><i></i>в работе<span>2</span></h2>
+    <div class="hint">делаю на тестовом боте</div>
+    <div class="card">
+      <div class="t">промокоды и типо-баллы</div>
+      <div class="d">тз получено: кешбэк 5%, оплата баллами до 20% заказа, скидка не больше 20% прибыли товара, один промокод на заказ. экран покупки, шторка выбора, админка маркетинга</div>
+      <span class="tag">приложение · бот · админка</span>
+    </div>
+    <div class="card">
+      <div class="t">подключение api</div>
+      <div class="d">товары, остатки, пользователи, баланс, заказы. приложение и бот перестают выдумывать данные. слепок боевого бота получен, беру схему из него</div>
+      <span class="tag">бэкенд</span>
+    </div>
+  </div>
+
+  <div class="col c-done">
+    <h2><i></i>готово<span>16</span></h2>
+    <div class="hint">работает вживую, можно щупать</div>
+
+    <div class="card">
+      <div class="t">главная</div>
+      <div class="d">поиск, категории, баннер, хит, баланс, популярное</div>
+      <div class="shots"><button type="button" data-src="img/home.jpg"><img src="img/home.jpg" alt="главная"></button></div>
+      <span class="tag">приложение</span>
     </div>
 
-    <div class="pick">
-      <div class="t">промокоды и баллы в приложении</div>
-      <div class="d">в боте работают, в приложении пока только справка</div>
+    <div class="card">
+      <div class="t">каталог аккаунтов</div>
+      <div class="d">отлёжка, страна, формат выдачи, количество с клавиатуры</div>
       <div class="shots">
-        <button type="button" data-src="img/points.jpg"><img src="img/points.jpg" alt="баллы"></button>
+        <button type="button" data-src="img/catalog.jpg"><img src="img/catalog.jpg" alt="каталог"></button>
+        <button type="button" data-src="img/sheet.jpg"><img src="img/sheet.jpg" alt="отлёжка"></button>
       </div>
+      <span class="tag">приложение</span>
     </div>
-  </section>
 
-  <section>
-    <h2 class="done"><i></i>готово <b>приложение</b></h2>
-    <ul>
-      <li>
-        <div class="t">главная</div>
-        <div class="d">поиск, категории, баннер, хит, баланс, популярное</div>
-        <div class="shots"><button type="button" data-src="img/home.jpg"><img src="img/home.jpg" alt="главная"></button></div>
-      </li>
-      <li>
-        <div class="t">каталог аккаунтов</div>
-        <div class="d">отлёжка, страна, формат выдачи, количество с клавиатуры</div>
-        <div class="shots">
-          <button type="button" data-src="img/catalog.jpg"><img src="img/catalog.jpg" alt="каталог"></button>
-          <button type="button" data-src="img/sheet.jpg"><img src="img/sheet.jpg" alt="выбор отлёжки"></button>
-        </div>
-      </li>
-      <li>
-        <div class="t">каталог sms</div>
-        <div class="d">сервис и страна, цена пересчитывается на месте</div>
-        <div class="shots">
-          <button type="button" data-src="img/sms-catalog.jpg"><img src="img/sms-catalog.jpg" alt="sms"></button>
-          <button type="button" data-src="img/sms-country.jpg"><img src="img/sms-country.jpg" alt="страна"></button>
-        </div>
-      </li>
-      <li>
-        <div class="t">покупка в один тап</div>
-        <div class="d">без корзины, скидка уровня применяется сама</div>
-        <div class="shots">
-          <button type="button" data-src="img/check.jpg"><img src="img/check.jpg" alt="проверка"></button>
-          <button type="button" data-src="img/check-done.jpg"><img src="img/check-done.jpg" alt="проверен"></button>
-        </div>
-      </li>
-      <li>
-        <div class="t">заказы</div>
-        <div class="d">список с живыми статусами</div>
-        <div class="shots"><button type="button" data-src="img/orders.jpg"><img src="img/orders.jpg" alt="заказы"></button></div>
-      </li>
-      <li>
-        <div class="t">выдача под каждый товар</div>
-        <div class="d">код от аккаунта, номер и код sms, строка прокси, ключ vpn с инструкцией</div>
-        <div class="shots">
-          <button type="button" data-src="img/order-acc.jpg"><img src="img/order-acc.jpg" alt="аккаунт"></button>
-          <button type="button" data-src="img/order-sms.jpg"><img src="img/order-sms.jpg" alt="sms"></button>
-          <button type="button" data-src="img/order-proxy.jpg"><img src="img/order-proxy.jpg" alt="прокси"></button>
-          <button type="button" data-src="img/order-vpn.jpg"><img src="img/order-vpn.jpg" alt="vpn"></button>
-        </div>
-      </li>
-      <li>
-        <div class="t">не жми</div>
-        <div class="d">лента видео, свайп, кнопка покупки под роликом</div>
-        <div class="shots"><button type="button" data-src="img/feed.jpg"><img src="img/feed.jpg" alt="лента"></button></div>
-      </li>
-      <li>
-        <div class="t">профиль</div>
-        <div class="d">баланс, баллы, уровень, повтор покупки</div>
-        <div class="shots"><button type="button" data-src="img/profile.jpg"><img src="img/profile.jpg" alt="профиль"></button></div>
-      </li>
-      <li>
-        <div class="t">поддержка и настройки</div>
-        <div class="d">частые вопросы, уведомления, звук, язык</div>
-        <div class="shots">
-          <button type="button" data-src="img/support.jpg"><img src="img/support.jpg" alt="поддержка"></button>
-          <button type="button" data-src="img/settings.jpg"><img src="img/settings.jpg" alt="настройки"></button>
-        </div>
-      </li>
-    </ul>
-  </section>
+    <div class="card">
+      <div class="t">каталог sms</div>
+      <div class="d">сервис и страна, цена пересчитывается на месте</div>
+      <div class="shots">
+        <button type="button" data-src="img/sms-catalog.jpg"><img src="img/sms-catalog.jpg" alt="sms"></button>
+        <button type="button" data-src="img/sms-country.jpg"><img src="img/sms-country.jpg" alt="страна"></button>
+      </div>
+      <span class="tag">приложение</span>
+    </div>
 
-  <section>
-    <h2 class="done"><i></i>готово <b>состояния</b></h2>
-    <div class="sec-hint">что видит человек, когда что-то идёт не по плану</div>
-    <ul>
-      <li>
-        <div class="t">не хватает денег</div>
-        <div class="d">сколько стоит, сколько на балансе, чего не хватает, кнопка пополнить. выбранное не сбрасывается</div>
-        <div class="shots"><button type="button" data-src="img/no-money.jpg"><img src="img/no-money.jpg" alt="не хватает"></button></div>
-      </li>
-      <li>
-        <div class="t">просит больше, чем есть</div>
-        <div class="d">кнопка сама пишет «есть только 41» и ставит остаток одним тапом</div>
-        <div class="shots"><button type="button" data-src="img/stock.jpg"><img src="img/stock.jpg" alt="остаток"></button></div>
-      </li>
-      <li>
-        <div class="t">ждём код из sms</div>
-        <div class="d">таймер тикает, прогресс идёт, есть отмена с возвратом денег</div>
-        <div class="shots"><button type="button" data-src="img/sms-waiting.jpg"><img src="img/sms-waiting.jpg" alt="ждём код"></button></div>
-      </li>
-      <li>
-        <div class="t">аккаунт проверяется перед выдачей</div>
-        <div class="d">вход, спамблок, заморозка. мёртвый аккаунт клиенту не показываем</div>
-        <div class="shots">
-          <button type="button" data-src="img/check.jpg"><img src="img/check.jpg" alt="идёт проверка"></button>
-          <button type="button" data-src="img/check-done.jpg"><img src="img/check-done.jpg" alt="проверен"></button>
-        </div>
-      </li>
-      <li>
-        <div class="t">код истёк, sms не пришла</div>
-        <div class="d">не молчим: пишем словами и даём кнопку запросить заново или вернуть деньги</div>
-      </li>
-      <li>
-        <div class="t">нет в наличии, осталось мало, нет интернета</div>
-        <div class="d">на каждый случай свой экран с подсказкой, что делать</div>
-      </li>
-    </ul>
-  </section>
+    <div class="card">
+      <div class="t">покупка в один тап</div>
+      <div class="d">без корзины, скидка уровня сама, проверка аккаунта перед выдачей</div>
+      <div class="shots">
+        <button type="button" data-src="img/check.jpg"><img src="img/check.jpg" alt="проверка"></button>
+        <button type="button" data-src="img/check-done.jpg"><img src="img/check-done.jpg" alt="проверен"></button>
+      </div>
+      <span class="tag">приложение</span>
+    </div>
 
-  <section>
-    <h2 class="done"><i></i>готово <b>реклама</b></h2>
-    <div class="sec-hint">вход из профиля. оплата только после ручной проверки, метрики и выбор места на месте</div>
-    <ul>
-      <li>
-        <div class="t">выбор места</div>
-        <div class="d">на главной, в ленте видео, в каталоге, рассылка в боте. у каждого превью и цена</div>
-        <div class="shots">
-          <button type="button" data-src="img/ad-list.jpg"><img src="img/ad-list.jpg" alt="места"></button>
-        </div>
-      </li>
-      <li>
-        <div class="t">заявка</div>
-        <div class="d">срок 24 часа, 3 или 7 дней, проект, ссылка, материал, комментарий, стоимость</div>
-        <div class="shots">
-          <button type="button" data-src="img/ad-build.jpg"><img src="img/ad-build.jpg" alt="заявка"></button>
-          <button type="button" data-src="img/ad-preview.jpg"><img src="img/ad-preview.jpg" alt="превью"></button>
-        </div>
-      </li>
-      <li>
-        <div class="t">статусы заявки</div>
-        <div class="d">на проверке, одобрено с оплатой, запланировано, отклонено с причиной</div>
-        <div class="shots">
-          <button type="button" data-src="img/ad-sent.jpg"><img src="img/ad-sent.jpg" alt="отправлено"></button>
-          <button type="button" data-src="img/ad-approved.jpg"><img src="img/ad-approved.jpg" alt="одобрено"></button>
-          <button type="button" data-src="img/ad-declined.jpg"><img src="img/ad-declined.jpg" alt="отклонено"></button>
-        </div>
-      </li>
-      <li>
-        <div class="t">статистика показа</div>
-        <div class="d">показы, клики, досмотры ролика, пауза и отчёт</div>
-        <div class="shots">
-          <button type="button" data-src="img/ad-active.jpg"><img src="img/ad-active.jpg" alt="статистика"></button>
-        </div>
-      </li>
-    </ul>
-  </section>
+    <div class="card">
+      <div class="t">заказы и выдача</div>
+      <div class="d">код от аккаунта, номер и код sms, строка прокси, ключ vpn с инструкцией</div>
+      <div class="shots">
+        <button type="button" data-src="img/orders.jpg"><img src="img/orders.jpg" alt="заказы"></button>
+        <button type="button" data-src="img/order-acc.jpg"><img src="img/order-acc.jpg" alt="аккаунт"></button>
+        <button type="button" data-src="img/order-sms.jpg"><img src="img/order-sms.jpg" alt="sms"></button>
+        <button type="button" data-src="img/order-proxy.jpg"><img src="img/order-proxy.jpg" alt="прокси"></button>
+        <button type="button" data-src="img/order-vpn.jpg"><img src="img/order-vpn.jpg" alt="vpn"></button>
+      </div>
+      <span class="tag">приложение</span>
+    </div>
 
-  <section>
-    <h2 class="done"><i></i>готово <b>бот</b></h2>
-    <ul>
-      <li>
-        <div class="t">магазин целиком в чате</div>
-        <div class="d">каталог, корзина, промокоды, оплата с баланса, выдача</div>
-      </li>
-      <li>
-        <div class="t">флоу и тексты как в старом боте</div>
-        <div class="d">плюс sms, vpn, stars, premium</div>
-      </li>
-      <li>
-        <div class="t">видео на экранах</div>
-        <div class="d">ролики из старого бота на своих местах</div>
-      </li>
-      <li>
-        <div class="t">админка</div>
-        <div class="d">сток, промокоды, рассылка, отчёт за день</div>
-      </li>
-    </ul>
-  </section>
+    <div class="card">
+      <div class="t">не жми</div>
+      <div class="d">лента видео, свайп, кнопка покупки под роликом</div>
+      <div class="shots"><button type="button" data-src="img/feed.jpg"><img src="img/feed.jpg" alt="лента"></button></div>
+      <span class="tag">приложение</span>
+    </div>
 
-  <section>
-    <h2><i></i>далее</h2>
-    <ul>
-      <li>
-        <div class="t">настоящий сервер вместо демо-данных</div>
-        <div class="d">сейчас заказы и балансы живут в памяти, перезапуск обнуляет</div>
-      </li>
-      <li>
-        <div class="t">приём настоящих платежей</div>
-        <div class="d">cryptobot и xrocket, счёт пока не выставляется</div>
-      </li>
-      <li>
-        <div class="t">склад и админка: загрузка аккаунтов, номеров, прокси, ключей</div>
-      </li>
-      <li>
-        <div class="t">поиск по каталогу</div>
-      </li>
-      <li>
-        <div class="t">выдача session + json файлом</div>
-      </li>
-      <li>
-        <div class="t">видео для sms, vpn, stars, premium в боте</div>
-      </li>
-    </ul>
-  </section>
+    <div class="card">
+      <div class="t">профиль, поддержка, настройки</div>
+      <div class="d">баланс, баллы, уровень, повтор покупки, частые вопросы</div>
+      <div class="shots">
+        <button type="button" data-src="img/profile.jpg"><img src="img/profile.jpg" alt="профиль"></button>
+        <button type="button" data-src="img/support.jpg"><img src="img/support.jpg" alt="поддержка"></button>
+        <button type="button" data-src="img/settings.jpg"><img src="img/settings.jpg" alt="настройки"></button>
+      </div>
+      <span class="tag">приложение</span>
+    </div>
+
+    <div class="card">
+      <div class="t">реклама: выбор места</div>
+      <div class="d">на главной, в ленте видео, в каталоге, рассылка в боте. у каждого превью и цена</div>
+      <div class="shots"><button type="button" data-src="img/ad-list.jpg"><img src="img/ad-list.jpg" alt="места"></button></div>
+      <span class="tag">реклама</span>
+    </div>
+
+    <div class="card">
+      <div class="t">реклама: заявка и превью</div>
+      <div class="d">срок, проект, ссылка, материал, стоимость. видно, как объявление увидит покупатель</div>
+      <div class="shots">
+        <button type="button" data-src="img/ad-build.jpg"><img src="img/ad-build.jpg" alt="заявка"></button>
+        <button type="button" data-src="img/ad-preview.jpg"><img src="img/ad-preview.jpg" alt="превью"></button>
+      </div>
+      <span class="tag">реклама</span>
+    </div>
+
+    <div class="card">
+      <div class="t">реклама: статусы и статистика</div>
+      <div class="d">на проверке, одобрено с оплатой, отклонено с причиной. показы, клики, досмотры</div>
+      <div class="shots">
+        <button type="button" data-src="img/ad-sent.jpg"><img src="img/ad-sent.jpg" alt="отправлено"></button>
+        <button type="button" data-src="img/ad-approved.jpg"><img src="img/ad-approved.jpg" alt="одобрено"></button>
+        <button type="button" data-src="img/ad-declined.jpg"><img src="img/ad-declined.jpg" alt="отклонено"></button>
+        <button type="button" data-src="img/ad-active.jpg"><img src="img/ad-active.jpg" alt="статистика"></button>
+      </div>
+      <span class="tag">реклама</span>
+    </div>
+
+    <div class="card">
+      <div class="t">не хватает денег</div>
+      <div class="d">сколько стоит, сколько на балансе, чего не хватает. выбранное не сбрасывается</div>
+      <div class="shots"><button type="button" data-src="img/no-money.jpg"><img src="img/no-money.jpg" alt="не хватает"></button></div>
+      <span class="tag">состояние</span>
+    </div>
+
+    <div class="card">
+      <div class="t">просит больше, чем есть</div>
+      <div class="d">кнопка сама пишет «есть только 41» и ставит остаток одним тапом</div>
+      <div class="shots"><button type="button" data-src="img/stock.jpg"><img src="img/stock.jpg" alt="остаток"></button></div>
+      <span class="tag">состояние</span>
+    </div>
+
+    <div class="card">
+      <div class="t">ждём код из sms</div>
+      <div class="d">таймер тикает, есть отмена с возвратом. не пришёл — вернём деньги</div>
+      <div class="shots"><button type="button" data-src="img/sms-waiting.jpg"><img src="img/sms-waiting.jpg" alt="ждём код"></button></div>
+      <span class="tag">состояние</span>
+    </div>
+
+    <div class="card">
+      <div class="t">код истёк, нет в наличии, нет интернета</div>
+      <div class="d">на каждый случай свой экран с подсказкой, что делать</div>
+      <span class="tag">состояние</span>
+    </div>
+
+    <div class="card">
+      <div class="t">магазин целиком в боте</div>
+      <div class="d">каталог, корзина, промокоды, оплата с баланса, выдача. флоу и тексты как в старом боте, плюс sms, vpn, stars, premium</div>
+      <span class="tag">бот</span>
+    </div>
+
+    <div class="card">
+      <div class="t">админка бота</div>
+      <div class="d">сток, промокоды, рассылка, отчёт за день</div>
+      <span class="tag">бот</span>
+    </div>
+  </div>
+
+  <div class="col c-next">
+    <h2><i></i>далее<span>5</span></h2>
+    <div class="hint">после api</div>
+    <div class="card">
+      <div class="t">склад и загрузка товара</div>
+      <div class="d">аккаунты, номера, прокси, ключи через админку. списание при покупке</div>
+      <span class="tag">бэкенд</span>
+    </div>
+    <div class="card">
+      <div class="t">приём настоящих платежей</div>
+      <div class="d">cryptobot и xrocket, счёт пока не выставляется</div>
+      <span class="tag">бэкенд</span>
+    </div>
+    <div class="card">
+      <div class="t">поиск по каталогу</div>
+      <span class="tag">приложение</span>
+    </div>
+    <div class="card">
+      <div class="t">выдача session + json файлом</div>
+      <span class="tag">приложение · бот</span>
+    </div>
+    <div class="card">
+      <div class="t">видео для sms, vpn, stars, premium</div>
+      <div class="d">своих роликов нет, пока показываем ролик каталога</div>
+      <span class="tag">бот</span>
+    </div>
+  </div>
+
 </div>
 
 <div class="lb" id="lb">
