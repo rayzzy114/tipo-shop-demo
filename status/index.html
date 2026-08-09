@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>типо shop · статус</title>
+<style>
+  :root {
+    --bg: #0c0f12;
+    --card: #14181c;
+    --ink: #eef1ec;
+    --dim: #8b938a;
+    --rule: #232a2e;
+    --ok: #30d158;
+    --wait: #f0a93b;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.1rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+  h1 { font-size: 1.5rem; margin: 0; font-weight: 700; letter-spacing: -0.01em; }
+  .date { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); letter-spacing: 0.1em; }
+  .links { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.2rem; }
+  .links a {
+    font-size: 0.82rem; text-decoration: none; color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 0.5rem; padding: 0.4rem 0.7rem;
+  }
+  .links a:hover { border-color: var(--ok); color: var(--ok); }
+  h2 {
+    font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.14em;
+    color: var(--dim); font-weight: 600; margin: 0 0 0.9rem;
+    padding-bottom: 0.55rem; border-bottom: 1px solid var(--rule);
+  }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  li { padding: 0.75rem 0; border-bottom: 1px solid var(--rule); }
+  li:last-child { border-bottom: 0; }
+  .t { font-size: 0.95rem; }
+  .d { color: var(--dim); font-size: 0.84rem; margin-top: 0.15rem; }
+  .shots { display: flex; gap: 0.5rem; margin-top: 0.6rem; overflow-x: auto; padding-bottom: 0.2rem; }
+  .shots a { flex: none; }
+  .shots img {
+    display: block; width: 104px; border-radius: 0.5rem;
+    border: 1px solid var(--rule); background: var(--card);
+  }
+  .pick { border: 1px solid var(--rule); border-radius: 0.7rem; padding: 0.9rem 1rem; background: var(--card); }
+  .pick + .pick { margin-top: 0.6rem; }
+  .pick .t { font-weight: 600; }
+  .est { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); }
+  footer { color: var(--dim); font-size: 0.82rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="date">9 августа 2026</div>
+    <h1>типо shop · статус</h1>
+    <div class="links">
+      <a href="https://t.me/sverdlovsktipo_bot?startapp">приложение</a>
+      <a href="https://t.me/sverdlovsktipo_bot">бот</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>нужно решение</h2>
+
+    <div class="pick">
+      <div class="t">реклама: вариант 1</div>
+      <div class="d">шесть мест, календарь занятости, статистика показов. <span class="est">4–5 дней</span></div>
+      <div class="shots">
+        <a href="img/ads-a-places.jpg"><img src="img/ads-a-places.jpg" alt="места"></a>
+        <a href="img/ads-a-builder.jpg"><img src="img/ads-a-builder.jpg" alt="конструктор"></a>
+        <a href="img/ads-a-stats.jpg"><img src="img/ads-a-stats.jpg" alt="статистика"></a>
+      </div>
+    </div>
+
+    <div class="pick">
+      <div class="t">реклама: вариант 2</div>
+      <div class="d">два формата, баннер и видео, оплата после ручной проверки. <span class="est">2–3 дня</span></div>
+      <div class="shots">
+        <a href="img/ads-b-main.jpg"><img src="img/ads-b-main.jpg" alt="главный экран"></a>
+        <a href="img/ads-b-request.jpg"><img src="img/ads-b-request.jpg" alt="заявка"></a>
+        <a href="img/ads-b-preview.jpg"><img src="img/ads-b-preview.jpg" alt="превью"></a>
+        <a href="img/ads-b-admin.jpg"><img src="img/ads-b-admin.jpg" alt="админка"></a>
+      </div>
+    </div>
+
+    <div class="pick">
+      <div class="t">промокоды и баллы в приложении</div>
+      <div class="d">в боте работают, в приложении пока только справка. <span class="est">2 дня</span></div>
+      <div class="shots">
+        <a href="img/points.jpg"><img src="img/points.jpg" alt="баллы"></a>
+      </div>
+    </div>
+
+    <div class="pick">
+      <div class="t">опт: 50 аккаунтов одним заказом</div>
+      <div class="d">купить можно, выдача рисуется по одному. файлом или списком в чат. <span class="est">2 дня</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>готово · приложение</h2>
+    <ul>
+      <li>
+        <div class="t">главная</div>
+        <div class="d">поиск, категории, баннер, хит, баланс, популярное</div>
+        <div class="shots"><a href="img/home.jpg"><img src="img/home.jpg" alt="главная"></a></div>
+      </li>
+      <li>
+        <div class="t">каталог</div>
+        <div class="d">отлёжка, страна, формат, количество с клавиатуры</div>
+        <div class="shots">
+          <a href="img/catalog.jpg"><img src="img/catalog.jpg" alt="каталог"></a>
+          <a href="img/sheet.jpg"><img src="img/sheet.jpg" alt="отлёжка"></a>
+          <a href="img/stock.jpg"><img src="img/stock.jpg" alt="остаток"></a>
+        </div>
+      </li>
+      <li>
+        <div class="t">покупка в один тап</div>
+        <div class="d">без корзины, скидка уровня сама, проверка аккаунта перед выдачей</div>
+        <div class="shots">
+          <a href="img/check.jpg"><img src="img/check.jpg" alt="проверка"></a>
+          <a href="img/check-done.jpg"><img src="img/check-done.jpg" alt="проверен"></a>
+        </div>
+      </li>
+      <li>
+        <div class="t">заказы и выдача</div>
+        <div class="d">код с таймером, ожидание sms, прокси, ключ vpn, копирование в один тап</div>
+        <div class="shots">
+          <a href="img/orders.jpg"><img src="img/orders.jpg" alt="заказы"></a>
+          <a href="img/order-acc.jpg"><img src="img/order-acc.jpg" alt="аккаунт"></a>
+          <a href="img/order-sms.jpg"><img src="img/order-sms.jpg" alt="sms"></a>
+        </div>
+      </li>
+      <li>
+        <div class="t">не жми</div>
+        <div class="d">лента видео, свайп, кнопка покупки под роликом</div>
+        <div class="shots"><a href="img/feed.jpg"><img src="img/feed.jpg" alt="лента"></a></div>
+      </li>
+      <li>
+        <div class="t">профиль</div>
+        <div class="d">баланс, баллы, уровень, повтор покупки, поддержка, настройки</div>
+        <div class="shots"><a href="img/profile.jpg"><img src="img/profile.jpg" alt="профиль"></a></div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>готово · бот</h2>
+    <ul>
+      <li>
+        <div class="t">магазин целиком в чате</div>
+        <div class="d">каталог, корзина, промокоды, оплата с баланса, выдача</div>
+      </li>
+      <li>
+        <div class="t">флоу и тексты как в старом боте</div>
+        <div class="d">плюс sms, vpn, stars, premium</div>
+      </li>
+      <li>
+        <div class="t">видео на экранах</div>
+        <div class="d">ролики из старого бота на своих местах</div>
+      </li>
+      <li>
+        <div class="t">админка</div>
+        <div class="d">сток, промокоды, рассылка, отчёт за день</div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>далее</h2>
+    <ul>
+      <li>
+        <div class="t">настоящий сервер вместо демо-данных</div>
+        <div class="d">сейчас заказы и балансы живут в памяти, перезапуск обнуляет</div>
+      </li>
+      <li>
+        <div class="t">приём настоящих платежей</div>
+        <div class="d">cryptobot и xrocket, счёт пока не выставляется</div>
+      </li>
+      <li>
+        <div class="t">поиск по каталогу</div>
+      </li>
+      <li>
+        <div class="t">выдача session + json файлом</div>
+      </li>
+      <li>
+        <div class="t">видео для sms, vpn, stars, premium в боте</div>
+      </li>
+    </ul>
+  </section>
+
+  <footer>данные демонстрационные, деньги не списываются</footer>
+</div>
+</body>
+</html>
